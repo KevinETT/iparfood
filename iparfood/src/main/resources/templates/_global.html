@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html th:fragment="plantilla (titulo, contenido)"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/" class="h-100" lang="es">
+<head>
+<title th:replace="${titulo}">IparFood</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" href="../static/css/bootstrap-icons.min.css"
+	th:href="@{/css/bootstrap-icons.min.css}">
+<link rel="icon" href="../static/imgs/fork-knife.svg"
+	th:href="@{/imgs/fork-knife.svg}">
+</head>
+<body class="h-100 d-flex flex-column">
+	<nav class="sticky-top navbar navbar-expand-sm bg-dark"
+		data-bs-theme="dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="index.html" th:href="@{/}"><i
+				class="bi bi-fork-knife"></i> IparFood</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-sm-0">
+					<li class="nav-item"><a class="nav-link" href="index.html"
+						th:href="@{/}">Principal</a></li>
+				</ul>
+				<ul class="navbar-nav mb-2 mb-sm-0">
+					<li sec:authorize="hasRole('ADMINISTRADOR')" class="nav-item"><a class="nav-link" href="admin.html"
+						th:href="@{/admin}">Administración</a></li>
+
+					<th:block sec:authorize="isAuthenticated()">
+						<li class="nav-item"><a class="nav-link" href="pedido.html"
+							th:href="@{/pedido}">Pedido actual</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="listado-pedidos.html" th:href="@{/listado-pedidos}">Pedidos</a></li>
+						<li class="navbar-text"><span sec:authentication="name">USUARIO</span>
+							<span sec:authentication="principal.authorities">ROLES</span></li>
+						<li class="nav-item">
+							<form th:action="logout" th:method="post">
+								<button class="nav-link">Cerrar sesión</button>
+							</form>
+						</li>
+					</th:block>
+					<li sec:authorize="isAnonymous()" class="nav-item"><a
+						class="nav-link" href="login">Iniciar sesión</a></li>
+					<li sec:authorize="isAnonymous()" class="nav-item"><a
+						class="nav-link" href="registrar">Registrarse</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class='container flex-grow-1 my-5'>
+		<main th:replace="${contenido}">
+			<p>CONTENIDO POR DEFECTO</p>
+		</main>
+	</div>
+
+	<footer class="p-2 text-bg-dark"> &copy;2026 Javier Lete </footer>
+	<script src="../static/js/bootstrap.bundle.min.js"
+		th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+
+</html>
