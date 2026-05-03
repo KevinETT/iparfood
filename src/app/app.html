@@ -1,0 +1,38 @@
+<nav class="sticky-top navbar navbar-expand-sm bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/"><i class="bi bi-fork-knife"></i> IparFood</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" routerLink="/">Principal</a></li>
+            </ul>
+            <ul class="navbar-nav mb-2 mb-sm-0">
+                @if(this.usuarioService.usuario()) {
+
+                <li class="navbar-text">{{this.usuarioService.usuario()?.nombre}}</li>
+
+                @if(this.usuarioService.usuario()?.rol === 'ADMINISTRADOR') {
+                <li class="nav-item"><a class="nav-link" routerLink="/admin">Administración</a></li>
+                }
+
+                <li class="nav-item"><button class="nav-link" (click)="logout()">Cerrar sesión</button></li>
+
+                } @else {
+
+                <li class="nav-item"><a class="nav-link" routerLink="/login">Iniciar sesión</a></li>
+
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class='container flex-grow-1 my-5'>
+    <main>
+        <router-outlet />
+    </main>
+</div>
+<footer class="p-2 text-bg-dark"> &copy;2026 Javier Lete </footer>
